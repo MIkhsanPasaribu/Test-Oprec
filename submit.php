@@ -1,4 +1,16 @@
 <?php
+// Enable CORS
+header("Access-Control-Allow-Origin: https://your-vercel-domain.vercel.app");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Max-Age: 3600");
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 // Database connection parameters
 $servername = "localhost";
 $username = "root";  // Change to your MySQL username
