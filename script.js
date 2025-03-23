@@ -180,7 +180,9 @@ document.addEventListener("DOMContentLoaded", function () {
         '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...';
   
       // Send data to external PHP server
-      fetch("https://your-php-hosting.com/submit.php", {
+      // In your form submission code
+      // In your form submission code, update the fetch URL
+      fetch("https://ititanixrecruitment.infinityfreeapp.com/submit.php", {
         method: "POST",
         body: formData,
       })

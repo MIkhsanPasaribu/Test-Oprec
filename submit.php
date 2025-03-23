@@ -1,6 +1,6 @@
 <?php
-// Enable CORS
-header("Access-Control-Allow-Origin: https://your-vercel-domain.vercel.app");
+// CORS headers for InfinityFree
+header("Access-Control-Allow-Origin: https://ititanixrecruitment.vercel.app");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Max-Age: 3600");
@@ -169,6 +169,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         '{$studyPlanCardUpload['path']}', '{$igFollowProofUpload['path']}'
     )";
     
+    // At the end of your submit.php file, after successful form processing:
+    
     if ($conn->query($sql) === TRUE) {
         // Send confirmation email if requested
         if (isset($_POST['sendCopy']) && $_POST['sendCopy'] == 'on') {
@@ -207,7 +209,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             echo json_encode(['success' => true]);
         } else {
-            header("Location: success.php");
+            // Redirect to Vercel success page
+            header("Location: https://ititanixrecruitment.vercel.app/success.html");
         }
         exit();
     } else {
