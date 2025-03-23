@@ -1,0 +1,181 @@
+# ITitanix Recruitment System - MySQL Database Integration Explanation
+
+## Overview
+This document explains how the MySQL database integration works in the ITitanix recruitment website. The system allows applicants to submit their information through a web form, which is then stored in a MySQL database. Administrators can view, manage, and export this data through a secure admin panel.
+
+## Database Structure
+The system uses a MySQL database named "ititanix_recruitment" with a single table called "applicants" that stores all applicant information:
+
+- id: Auto-incremented primary key
+- email: Applicant's email address
+- full_name: Applicant's full name
+- nickname: Applicant's preferred name
+- gender: Applicant's gender
+- birth_date: Applicant's date of birth
+- faculty: Faculty at university
+- department: Department within faculty
+- study_program: Specific study program
+- previous_school: Previous educational institution
+- address_in_padang: Current address in Padang
+- phone_number: Contact phone number
+- motivation: Motivation text
+- future_plans: Future plans text
+- reason_to_join: Reason to join ITitanix
+- software_used: List of software skills
+- other_software: Additional software skills
+- payment_proof: Path to uploaded payment proof image
+- photo: Path to uploaded applicant photo
+- student_card: Path to uploaded student ID card image
+- study_plan_card: Path to uploaded study plan card image
+- ig_follow_proof: Path to uploaded Instagram follow proof
+- submission_date: Timestamp of submission
+
+## File Structure
+The system consists of the following key files:
+
+1. config.php: Database connection configuration
+2. submit.php: Processes form submissions and stores data in the database
+3. success.php: Displays success message after submission
+4. admin/login.php: Admin login page
+5. admin/index.php: Lists all applicants
+6. admin/view.php: Displays detailed information for a specific applicant
+7. admin/export.php: Exports a specific applicant's data as CSV
+8. admin/export_all.php: Exports all applicants' data as CSV
+9. admin/delete.php: Deletes an applicant's record and associated files
+10. admin/dashboard.php: Displays statistics and summary information
+11. admin/logout.php: Handles admin logout
+
+## How Form Submission Works
+1. The user fills out the multi-step form on index.html
+2. JavaScript validates the form data on the client side
+3. When submitted, the form data is sent to submit.php
+4. submit.php:
+   - Connects to the MySQL database
+   - Creates the database and table if they don't exist
+   - Validates the submitted data
+   - Uploads and validates image files (payment proof, photo, etc.)
+   - Inserts the data into the applicants table
+   - Sends a confirmation email if requested
+   - Redirects to success.php or returns a JSON response
+
+## File Upload Handling
+The system handles file uploads securely:
+1. Files are stored in an "uploads" directory
+2. Each file is given a unique name using uniqid()
+3. Only image files (JPG, JPEG, PNG) are accepted
+4. File size is limited to 5MB
+5. Files are validated to ensure they are actual images
+
+## Admin Panel Features
+The admin panel provides several features:
+
+1. Secure Login:
+   - Uses PHP sessions for authentication
+   - Default credentials: username "admin", password "ititanix2023"
+
+2. Dashboard (dashboard.php):
+   - Shows total number of applicants
+   - Displays applicant distribution by faculty
+   - Shows gender distribution
+   - Lists recent applicants
+   - Provides quick access to common actions
+
+3. Applicant Management (index.php):
+   - Lists all applicants with key information
+   - Provides options to view, export, or delete each applicant
+
+4. Detailed View (view.php):
+   - Shows all information for a specific applicant
+   - Displays uploaded documents as images
+   - Provides options to export data
+
+5. Data Export:
+   - export.php: Exports a single applicant's data as CSV
+   - export_all.php: Exports all applicants' data as CSV
+
+6. Applicant Deletion (delete.php):
+   - Removes applicant record from database
+   - Deletes associated uploaded files
+
+## Security Measures
+The system implements several security measures:
+
+1. SQL Injection Prevention:
+   - Uses mysqli_real_escape_string() to escape user input
+   - Uses parameterized queries where appropriate
+
+2. XSS Prevention:
+   - Uses htmlspecialchars() to escape output
+   - Validates input data
+
+3. File Upload Security:
+   - Validates file types and sizes
+   - Generates unique filenames
+   - Checks if uploads are actual images
+
+4. Admin Authentication:
+   - Password-protected admin area
+   - Session-based authentication
+   - Logout functionality
+
+## How to Set Up and Use
+1. Database Setup:
+   - Ensure MySQL is installed and running
+   - Update database credentials in config.php if needed
+   - The system will automatically create the database and table
+
+2. Form Submission:
+   - Access the main form at index.html
+   - Fill out all required fields
+   - Upload required documents
+   - Submit the form
+
+3. Admin Access:
+   - Navigate to /admin/login.php
+   - Log in with username "admin" and password "ititanix2023"
+   - Use the dashboard to view and manage applicants
+
+4. Data Management:
+   - View applicant details by clicking "View" on the applicant list
+   - Export individual applicant data by clicking "Export"
+   - Export all data using the "Export All Data" button on the dashboard
+   - Delete applicants by clicking "Delete" (this will also remove uploaded files)
+
+## Customization Options
+The system can be customized in several ways:
+
+1. Database Configuration:
+   - Edit config.php to change database credentials or connection settings
+
+2. Form Fields:
+   - Modify index.html to add, remove, or change form fields
+   - Update submit.php to handle new or changed fields
+   - Update the database table structure as needed
+
+3. Admin Credentials:
+   - Change the admin username and password in admin/login.php
+
+4. Email Settings:
+   - Modify the email template and sender address in submit.php
+
+## Troubleshooting
+Common issues and solutions:
+
+1. Database Connection Errors:
+   - Verify MySQL is running
+   - Check database credentials in config.php
+   - Ensure the MySQL user has appropriate permissions
+
+2. File Upload Issues:
+   - Check that the uploads directory exists and is writable
+   - Verify PHP file upload settings in php.ini
+   - Check file size and type restrictions
+
+3. Form Submission Problems:
+   - Enable error reporting for debugging
+   - Check browser console for JavaScript errors
+   - Verify form action and method attributes
+
+4. Admin Access Issues:
+   - Clear browser cookies and try logging in again
+   - Verify session configuration in PHP
