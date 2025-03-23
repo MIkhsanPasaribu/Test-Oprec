@@ -1,9 +1,9 @@
 <?php
 // Database configuration for InfinityFree
-$servername = "sql312.infinityfree.com"; // Use the MySQL hostname from InfinityFree
-$username = "epiz_yourusername"; // Your InfinityFree MySQL username
-$password = "your_database_password"; // Your InfinityFree MySQL password
-$dbname = "epiz_yourdatabase"; // Your InfinityFree database name
+$servername = "sql109.infinityfree.com"; // Replace with your actual MySQL hostname from InfinityFree
+$username = "if0_38583343"; // Replace with your actual database username
+$password = "PPafMRWxEi9ApQ"; // Replace with your actual database password
+$dbname = "if0_38583343_ititanixrecruitment"; // Replace with your actual database name (same as username)
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
